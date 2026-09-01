@@ -312,7 +312,7 @@ namespace DVLDPresentationLayer.User_Controls
 
         private void tbEmail_Validating(object sender, CancelEventArgs e)
         {
-            if (!tbEmail.Text.IsNullOrEmpty())
+            if (!string.IsNullOrEmpty(tbEmail.Text))
             {
                 if (!_IsValidEmail(tbEmail.Text))
                 {
