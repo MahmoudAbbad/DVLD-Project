@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Compile Update="Froms\Person\frmAddEditPerson.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Froms\Person\frmShowPersonInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Froms\Users\frmShowUserDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="User Controls\cntrlAddEditPerson.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="User Controls\cntrlShowLoginInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Froms\Main\frmLoginScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Froms\Main\frmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Froms\Person\frmPeople.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Froms\Users\frmUsers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="User Controls\cntrlShowPersonInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>
