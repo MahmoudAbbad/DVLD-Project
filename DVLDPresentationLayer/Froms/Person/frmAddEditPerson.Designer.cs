@@ -43,6 +43,7 @@
             cntrlAddEditPerson1.Name = "cntrlAddEditPerson1";
             cntrlAddEditPerson1.Size = new Size(839, 443);
             cntrlAddEditPerson1.TabIndex = 0;
+            cntrlAddEditPerson1.NewPersonSaved += cntrlAddEditPerson1_NewPersonSaved_1;
             cntrlAddEditPerson1.Load += cntrlAddEditPerson1_Load;
             // 
             // lblTitle

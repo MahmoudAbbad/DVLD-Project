@@ -1,6 +1,7 @@
 ﻿using DVLDBusinessLogicLayer;
 using DVLDDataAccessLayer.Person;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.SqlServer.Server;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,12 +16,20 @@ namespace DVLDPresentationLayer.User_Controls
 {
     public partial class cntrlAddEditPerson : UserControl
     {
-        private int _PersonId = -1;
         private string _defaultMaleImage = @"M:\Icons\Icons\Male.png";
         private string _defaultFemaleImage = @"M:\Icons\Icons\Female 512.png";
         private clsPersonEntity _personInfo = new();
         private string _oldImage = string.Empty;
+        public event Action<clsPersonEntity> NewPersonSaved;
+        public void OnNewPersonSaved(clsPersonEntity person)
+        {
+            Action<clsPersonEntity> handler = NewPersonSaved;
 
+            if (handler != null)
+            {
+                handler(person);
+            }
+        }
         public delegate void CloseFormDelegate();
 
         public CloseFormDelegate CloseForm;
@@ -31,7 +40,7 @@ namespace DVLDPresentationLayer.User_Controls
 
         private void _LoadDataToForm()
         {
-            _personInfo = clsPerson.FindById(_PersonId);
+            _personInfo = clsPerson.FindById(_personInfo.PersonID);
 
             if (_personInfo != null)
             {
@@ -51,6 +60,7 @@ namespace DVLDPresentationLayer.User_Controls
                 tbEmail.Text = _personInfo.Email;
                 tbAddress.Text = _personInfo.Address;
                 tbPhone.Text = _personInfo.Phone;
+                cbCountry.SelectedItem = _personInfo.NationalityCountry;
                 if (!string.IsNullOrEmpty(_personInfo.ImagePath))
                 {
                     pbPersonImage.ImageLocation = _personInfo.ImagePath;
@@ -61,11 +71,14 @@ namespace DVLDPresentationLayer.User_Controls
                 {
                     if (_personInfo.Gendor == "Male")
                     {
-                        { if (File.Exists(_defaultMaleImage)) {
+                        {
+                            if (File.Exists(_defaultMaleImage))
+                            {
                                 if (pbPersonImage.Image != null) pbPersonImage.Image.Dispose();
                                 pbPersonImage.Image = Image.FromFile(_defaultMaleImage);
                             }
-                        } }
+                        }
+                    }
                     else
                     {
                         if (File.Exists(_defaultFemaleImage))
@@ -79,9 +92,9 @@ namespace DVLDPresentationLayer.User_Controls
         }
         public void LoadPersonData(int PersonId)
         {
-            _PersonId = PersonId;
+            _personInfo.PersonID = PersonId;
 
-            if (_PersonId <= 0)
+            if (_personInfo.PersonID <= 0)
             {
                 MessageBox.Show("Invalid Person ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 CloseForm?.Invoke();
@@ -103,13 +116,17 @@ namespace DVLDPresentationLayer.User_Controls
         }
         private void _ApplyDefaultChanges()
         {
-            dtpDateOfBirth.MaxDate = DateTime.Now - TimeSpan.FromDays(365 * 18);
-            rbMale.Enabled = true;
+            dtpDateOfBirth.Format = DateTimePickerFormat.Short;
             _FillCountryComboBox();
-            int defaultCountryIndex = -1;
-            clsCountries.GetCountry(ref defaultCountryIndex, "Jordan");
-            cbCountry.SelectedItem = cbCountry.Items[defaultCountryIndex - 1];
 
+            if (_personInfo.PersonID < 1 )
+            {
+                dtpDateOfBirth.MaxDate = DateTime.Now - TimeSpan.FromDays(365 * 18);
+                rbMale.Enabled = true;
+                int defaultCountryIndex = -1;
+                clsCountries.GetCountry(ref defaultCountryIndex, "Jordan");
+                cbCountry.SelectedItem = cbCountry.Items[defaultCountryIndex - 1];
+            }
         }
 
         private bool _IsValidEmail(string email)
@@ -161,7 +178,7 @@ namespace DVLDPresentationLayer.User_Controls
         {
             bool isValid = true;
 
-            if (_PersonId == -1)
+            if (_personInfo.PersonID == -1)
             {
                 if (clsPerson.IsNationalNoValid(tbNationalNo.Text))
                 {
@@ -205,7 +222,7 @@ namespace DVLDPresentationLayer.User_Controls
             person.ThirdName = tbThirdName.Text;
             person.LastName = tbLastName.Text;
             person.NationalNo = tbNationalNo.Text;
-            person.DateOfBirth = dtpDateOfBirth.Value;
+            person.DateOfBirth = dtpDateOfBirth.Value.Date;
             person.Gendor = rbMale.Checked ? "Male" : "Female";
             person.Address = tbAddress.Text;
             person.Phone = tbPhone.Text;
@@ -219,28 +236,64 @@ namespace DVLDPresentationLayer.User_Controls
 
             return person;
         }
+        private bool _IsNoDataChanged()
+        {
+            clsPersonEntity currentPersonInfo = _FillPersonInfoIntoObject();
+            if (currentPersonInfo != null)
+            {
+                if (_personInfo.FirstName != currentPersonInfo.FirstName ||
+                    _personInfo.SecondName != currentPersonInfo.SecondName ||
+                    _personInfo.ThirdName != currentPersonInfo.ThirdName ||
+                    _personInfo.LastName != currentPersonInfo.LastName ||
+                    _personInfo.NationalNo != currentPersonInfo.NationalNo ||
+                    _personInfo.DateOfBirth != currentPersonInfo.DateOfBirth ||
+                    _personInfo.Gendor != currentPersonInfo.Gendor ||
+                    _personInfo.Address != currentPersonInfo.Address ||
+                    _personInfo.Phone != currentPersonInfo.Phone ||
+                    _personInfo.Email != currentPersonInfo.Email ||
+                    _personInfo.NationalityCountry != currentPersonInfo.NationalityCountry ||
+                    _personInfo.ImagePath != currentPersonInfo.ImagePath)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (_IsNoDataChanged())
+            {
+                MessageBox.Show("No changes detected. Data is already up to date.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             if (_IsAllDataValid())
             {
+                bool isNewPerson = false;
+
                 clsPerson person = new clsPerson();
 
                 person.personInfo = _FillPersonInfoIntoObject();
 
-                if (_PersonId == -1)
+                if (_personInfo.PersonID == -1)
                 {
                     person.Mode = clsPerson._enMode.AddPerson;
+                    isNewPerson = true;
                 }
                 else
                 {
-                    person.personInfo.PersonID = _PersonId;
+                    person.personInfo.PersonID = _personInfo.PersonID;
                     person.Mode = clsPerson._enMode.UpdatePerson;
                 }
                 if (person.Save(_oldImage))
                 {
                     MessageBox.Show("Data saved successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     _personInfo = person.personInfo;
-                    _PersonId = _personInfo.PersonID;
+
+                    if (isNewPerson)
+                        NewPersonSaved?.Invoke(_personInfo);
+
+                    _LoadDataToForm();
                 }
                 else
                 {
@@ -255,9 +308,9 @@ namespace DVLDPresentationLayer.User_Controls
 
         private void lnkSetImage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if(!string.IsNullOrEmpty(pbPersonImage.ImageLocation))
+            if (!string.IsNullOrEmpty(_personInfo.ImagePath))
             {
-                _oldImage = pbPersonImage.ImageLocation;
+                _oldImage = _personInfo.ImagePath;
             }
             openFileDialog1.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;";
             openFileDialog1.ShowDialog();
@@ -331,7 +384,8 @@ namespace DVLDPresentationLayer.User_Controls
 
         private void lnkRemove_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            pbPersonImage.Image = pbPersonImage.InitialImage;
+            _oldImage = pbPersonImage.ImageLocation;
+            pbPersonImage.Image = Image.FromFile(_defaultMaleImage);
             pbPersonImage.ImageLocation = "";
         }
         private void rbMale_CheckedChanged(object sender, EventArgs e)
@@ -353,6 +407,11 @@ namespace DVLDPresentationLayer.User_Controls
                     pbPersonImage.Image = Image.FromFile(_defaultFemaleImage);
                 }
             }
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -68,7 +68,7 @@ namespace DVLD
                 clsPersonEntity personInfo = clsPerson.FindById((int)dvgListAllPerson.CurrentRow.Cells[0].Value);
                 clsPerson personService = new clsPerson(personInfo);
 
-                if (personService.DeletePerson(personInfo.PersonID))
+                if (personService.DeletePerson(personInfo.PersonID,personInfo.ImagePath))
                 {
                     _RefershGrid();
                     MessageBox.Show("Deleted is done Successfully", "Done!", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -157,7 +157,7 @@ namespace DVLD
                     break;
                 case 7:
                     dt.DefaultView.RowFilter =
-                    "Natinoality LIKE '" + tbSearch.Text + "%'";
+                    "Nationality LIKE '" + tbSearch.Text + "%'";
                     break;
                 case 8:
                     dt.DefaultView.RowFilter =

@@ -38,9 +38,8 @@ namespace DVLDBusinessLogicLayer
 
         private void _CopyImageIntoDestinationFile(string oldImage)
         {
-
              string SourcePath = personInfo.ImagePath;
-    
+
             if (!string.IsNullOrEmpty(SourcePath) && File.Exists(SourcePath))
             {
                 if (oldImage == SourcePath)
@@ -48,19 +47,29 @@ namespace DVLDBusinessLogicLayer
 
                 string extension = Path.GetExtension(SourcePath);
                 string DestinationPath = @"M:\Dvld images\DestenationImges\" + Guid.NewGuid().ToString() + extension;
-    
+
                 File.Copy(SourcePath, DestinationPath);
                 personInfo.ImagePath = DestinationPath;
-                if(!string.IsNullOrEmpty(oldImage)){
+                if (!string.IsNullOrEmpty(oldImage)) {
                     if (Path.GetDirectoryName(oldImage) == Path.GetDirectoryName(DestinationPath))
                         try
                         {
                             File.Delete(oldImage);
-                        } catch(Exception ex) {
+                        } catch (Exception ex) {
                             System.Diagnostics.Debug.WriteLine(ex.Message);
                         }
                 }
-            }
+            } else if (!string.IsNullOrEmpty(oldImage) && File.Exists(oldImage) && Path.GetDirectoryName(oldImage) == "M:\\Dvld images\\DestenationImges")
+                {
+                    try 
+                    { 
+                        File.Delete(oldImage);
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine(ex.Message);
+                    }
+              }
         }
         public bool Save(string oldImage)
         {
@@ -113,9 +122,23 @@ namespace DVLDBusinessLogicLayer
 
                 return personInfo;
         }
-        public bool DeletePerson(int PersonId)
+        public bool DeletePerson(int PersonId , string imagePath)
         {
-            return clsPeopleDataAccess.DeletePerson(PersonId);
+            bool isDeleted = clsPeopleDataAccess.DeletePerson(PersonId);
+
+            if (!string.IsNullOrEmpty(imagePath) && File.Exists(imagePath))
+            {
+                try
+                {
+                    File.Delete(imagePath);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                }
+            }
+
+            return isDeleted;
         }
 
         public static bool IsNationalNoValid(string NationalNo)

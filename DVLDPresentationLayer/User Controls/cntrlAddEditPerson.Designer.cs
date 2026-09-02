@@ -217,6 +217,7 @@
             // 
             // dtpDateOfBirth
             // 
+            dtpDateOfBirth.CalendarFont = new Font("Segoe UI", 11F);
             dtpDateOfBirth.Location = new Point(488, 130);
             dtpDateOfBirth.Name = "dtpDateOfBirth";
             dtpDateOfBirth.Size = new Size(130, 23);

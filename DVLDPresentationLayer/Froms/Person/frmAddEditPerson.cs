@@ -14,7 +14,7 @@ namespace DVLDPresentationLayer.Froms
     {
         public delegate void CloseFormDelegate();
         public CloseFormDelegate closeForm;
-        private int _PersonId =-1;
+        private int _PersonId = -1;
         public frmAddNewPerson(int PersonID)
         {
             InitializeComponent();
@@ -42,6 +42,11 @@ namespace DVLDPresentationLayer.Froms
         private void CloseForm()
         {
             this.Close();
+        }
+        private void cntrlAddEditPerson1_NewPersonSaved_1(DVLDDataAccessLayer.Person.clsPersonEntity obj)
+        {
+            lblTitle.Text = "Update Person";
+            lblPersonId.Text = obj.PersonID.ToString();
         }
     }
 }
