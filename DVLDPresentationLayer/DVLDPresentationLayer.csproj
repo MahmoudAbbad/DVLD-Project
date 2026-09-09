@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DVLDBusinessLogicLayer\DVLDBusinessLogicLayer.csproj" />
+    <ProjectReference Include="..\DVLDLib\DVLDLib.csproj" />
   </ItemGroup>
 
 

@@ -11,6 +11,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DVLDPresentationLayer.GlobalLibraries;
+using DVLDLib;
+
 
 namespace DVLDPresentationLayer.User_Controls
 {
@@ -128,25 +131,6 @@ namespace DVLDPresentationLayer.User_Controls
                 cbCountry.SelectedItem = cbCountry.Items[defaultCountryIndex - 1];
             }
         }
-
-        private bool _IsValidEmail(string email)
-        {
-            try
-            {
-                var mail = new System.Net.Mail.MailAddress(email);
-
-                if (mail.Address != email)
-                    return false;
-
-                string[] hostParts = mail.Host.Split('.');
-                return hostParts.Length >= 2 && hostParts[hostParts.Length - 1].Length >= 2;
-
-            }
-            catch
-            {
-                return false;
-            }
-        }
         private void tbPhone_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
@@ -158,20 +142,6 @@ namespace DVLDPresentationLayer.User_Controls
         private void btnClose_Click(object sender, EventArgs e)
         {
             CloseForm?.Invoke();
-        }
-
-        private bool _IsValidInput(Control control, string errorMessage)
-        {
-            if (string.IsNullOrEmpty(control.Text))
-            {
-                WarningError.SetError(control, errorMessage);
-                return false;
-            }
-            else
-            {
-                WarningError.SetError(control, "");
-                return true;
-            }
         }
 
         private bool _IsAllDataValid()
@@ -191,17 +161,18 @@ namespace DVLDPresentationLayer.User_Controls
                 }
             }
 
-            isValid &= _IsValidInput(tbFirstName, "First Name is required.");
-            isValid &= _IsValidInput(tbSecondName, "Second Name is required.");
-            isValid &= _IsValidInput(tbLastName, "Last Name is required.");
-            isValid &= _IsValidInput(tbAddress, "Address is required.");
-            isValid &= _IsValidInput(dtpDateOfBirth, "Date of Birth is required.");
-            isValid &= _IsValidInput(tbNationalNo, "National Number is required.");
-            isValid &= _IsValidInput(tbPhone, "Phone is required.");
-            isValid &= _IsValidInput(cbCountry, "Country is required.");
+            isValid &= clsValidationUi.IsValidInput(tbFirstName, WarningError, "First Name is required.");
+            isValid &= clsValidationUi.IsValidInput(tbSecondName, WarningError, "Second Name is required.");
+            isValid &= clsValidationUi.IsValidInput(tbLastName, WarningError, "Last Name is required.");
+            isValid &= clsValidationUi.IsValidInput(tbAddress, WarningError, "Address is required.");
+            isValid &= clsValidationUi.IsValidInput(dtpDateOfBirth, WarningError, "Date of Birth is required.");
+            isValid &= clsValidationUi.IsValidInput(tbNationalNo, WarningError, "National Number is required.");
+            isValid &= clsValidationUi.IsValidInput(tbPhone, WarningError, "Phone is required.");
+            isValid &= clsValidationUi.IsValidInput(cbCountry, WarningError, "Country is required.");
+
             if (!string.IsNullOrEmpty(tbEmail.Text))
             {
-                if (!_IsValidEmail(tbEmail.Text))
+                if (!clsValidationInput.IsValidEmail(tbEmail.Text))
                 {
                     WarningError.SetError(tbEmail, "Email is not valid.");
                     isValid = false;
@@ -236,6 +207,7 @@ namespace DVLDPresentationLayer.User_Controls
 
             return person;
         }
+
         private bool _IsNoDataChanged()
         {
             clsPersonEntity currentPersonInfo = _FillPersonInfoIntoObject();
@@ -335,39 +307,39 @@ namespace DVLDPresentationLayer.User_Controls
 
         private void tbFirstName_Validating(object sender, CancelEventArgs e)
         {
-            _IsValidInput(tbFirstName, "First Name is required.");
+            clsValidationUi.IsValidInput(tbFirstName, WarningError, "First Name is required.");
         }
 
         private void tbSecondName_Validating(object sender, CancelEventArgs e)
         {
-            _IsValidInput(tbSecondName, "Second Name is required.");
+            clsValidationUi.IsValidInput(tbSecondName, WarningError, "Second Name is required.");
         }
 
         private void tbLastName_Validating(object sender, CancelEventArgs e)
         {
-            _IsValidInput(tbLastName, "Last Name is required.");
+            clsValidationUi.IsValidInput(tbLastName, WarningError, "Last Name is required.");
         }
 
         private void tbNationalNo_Validating(object sender, CancelEventArgs e)
         {
-            _IsValidInput(tbNationalNo, "National Number is required.");
+            clsValidationUi.IsValidInput(tbNationalNo, WarningError, "National Number is required.");
         }
 
         private void tbPhone_Validating(object sender, CancelEventArgs e)
         {
-            _IsValidInput(tbPhone, "Phone is required.");
+            clsValidationUi.IsValidInput(tbPhone, WarningError, "Phone is required.");
         }
 
         private void tbAddress_Validating(object sender, CancelEventArgs e)
         {
-            _IsValidInput(tbAddress, "Address is required.");
+            clsValidationUi.IsValidInput(tbAddress, WarningError , "Address is required.");
         }
 
         private void tbEmail_Validating(object sender, CancelEventArgs e)
         {
             if (!string.IsNullOrEmpty(tbEmail.Text))
             {
-                if (!_IsValidEmail(tbEmail.Text))
+                if (!clsValidationInput.IsValidEmail(tbEmail.Text))
                 {
                     WarningError.SetError(tbEmail, "Email is not valid.");
                 }
@@ -407,11 +379,6 @@ namespace DVLDPresentationLayer.User_Controls
                     pbPersonImage.Image = Image.FromFile(_defaultFemaleImage);
                 }
             }
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
         }
     }
 }

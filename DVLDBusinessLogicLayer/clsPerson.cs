@@ -1,6 +1,8 @@
 ﻿using DVLDDataAccessLayer.Person;
+using DVLDLib;
 using System.Data;
 using System.Diagnostics;
+
 namespace DVLDBusinessLogicLayer
 {
     public class clsPerson
@@ -35,46 +37,10 @@ namespace DVLDBusinessLogicLayer
         {
             return clsPeopleDataAccess.GetAllPeople();
         }
-
-        private void _CopyImageIntoDestinationFile(string oldImage)
-        {
-             string SourcePath = personInfo.ImagePath;
-
-            if (!string.IsNullOrEmpty(SourcePath) && File.Exists(SourcePath))
-            {
-                if (oldImage == SourcePath)
-                    return;
-
-                string extension = Path.GetExtension(SourcePath);
-                string DestinationPath = @"M:\Dvld images\DestenationImges\" + Guid.NewGuid().ToString() + extension;
-
-                File.Copy(SourcePath, DestinationPath);
-                personInfo.ImagePath = DestinationPath;
-                if (!string.IsNullOrEmpty(oldImage)) {
-                    if (Path.GetDirectoryName(oldImage) == Path.GetDirectoryName(DestinationPath))
-                        try
-                        {
-                            File.Delete(oldImage);
-                        } catch (Exception ex) {
-                            System.Diagnostics.Debug.WriteLine(ex.Message);
-                        }
-                }
-            } else if (!string.IsNullOrEmpty(oldImage) && File.Exists(oldImage) && Path.GetDirectoryName(oldImage) == "M:\\Dvld images\\DestenationImges")
-                {
-                    try 
-                    { 
-                        File.Delete(oldImage);
-                    }
-                    catch (Exception ex)
-                    {
-                        System.Diagnostics.Debug.WriteLine(ex.Message);
-                    }
-              }
-        }
         public bool Save(string oldImage)
         {
-            _CopyImageIntoDestinationFile(oldImage);
-
+            personInfo.ImagePath = clsUtil.CopyImageIntoDestinationFile(oldImage, personInfo.ImagePath);
+            
             bool IsSaved = false;
 
             if (Mode == _enMode.AddPerson)
@@ -94,7 +60,6 @@ namespace DVLDBusinessLogicLayer
            
             return IsSaved;
         }
-
         public static clsPersonEntity FindById(int PersonID)
         {
             if(PersonID <= 0|| PersonID == null)
@@ -140,7 +105,6 @@ namespace DVLDBusinessLogicLayer
 
             return isDeleted;
         }
-
         public static bool IsNationalNoValid(string NationalNo)
         {
             return clsPeopleDataAccess.IsNationalityNoValid(NationalNo);
