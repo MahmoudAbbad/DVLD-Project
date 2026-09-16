@@ -16,11 +16,23 @@ namespace DVLDPresentationLayer.User_Controls
     public partial class cntrlShowPersonInfo : UserControl
     {
         private int _PersonId;
-        public delegate void CloseFormDelegate();
-        public CloseFormDelegate CloseForm;
         public cntrlShowPersonInfo()
         {
             InitializeComponent();
+        }
+
+        private void _ResetDefaultValues()
+        {
+            lblPersonId.Text = "N/A";
+            lblName.Text = "[???]";
+            lblNationalNo.Text = "[???]";
+            lblGender.Text = "[???]";
+            lblEmail.Text = "[???]";
+            lblAddress.Text = "[???]";
+            lblDateOfBirth.Text = "[???]";
+            lblPhone.Text = "[???]";
+            lblCountry.Text = "[???]";
+            pbPersonImage.Image = null;
         }
 
         public void LoadPersonInfo(int personId)
@@ -30,7 +42,8 @@ namespace DVLDPresentationLayer.User_Controls
             if (_PersonId <= 0)
             {
                 MessageBox.Show("Invalid Person ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                CloseForm?.Invoke();
+                _ResetDefaultValues();
+                return;
             }
 
             _LoadData();
@@ -68,22 +81,7 @@ namespace DVLDPresentationLayer.User_Controls
         {
             frmAddNewPerson frmEdit = new frmAddNewPerson(_PersonId);
             frmEdit.ShowDialog();
-            CloseForm?.Invoke();
-        }
-
-        private void lblName_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cntrlShowPersonInfo_Load(object sender, EventArgs e)
-        {
-           
+            _LoadData();
         }
     }
 }

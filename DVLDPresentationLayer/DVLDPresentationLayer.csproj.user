@@ -10,7 +10,7 @@
     <Compile Update="Froms\Users\frmShowUserDetails.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Froms\Person\cntrlAddEditPerson.cs">
+    <Compile Update="Froms\Person\Controls\cntrlAddEditPerson.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Froms\Login\cntrlShowLoginInfo.cs">
@@ -28,7 +28,7 @@
     <Compile Update="Froms\Users\frmUsers.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Froms\Person\cntrlShowPersonInfo.cs">
+    <Compile Update="Froms\Person\Controls\cntrlShowPersonInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>

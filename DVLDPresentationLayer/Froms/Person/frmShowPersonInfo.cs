@@ -19,12 +19,7 @@ namespace DVLDPresentationLayer.Froms
         {
             _PersonId = personId;
             InitializeComponent();
-            cntrlShowPersonInfo1.CloseForm += _CloseForm;
 
-        }
-        private void _CloseForm()
-        {
-            this.Close();
         }
         private void btnClose_Click(object sender, EventArgs e)
         {

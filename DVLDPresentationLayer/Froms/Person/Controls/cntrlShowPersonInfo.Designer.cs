@@ -106,7 +106,6 @@
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Person Information";
-            groupBox1.Enter += groupBox1_Enter;
             // 
             // lnkEditPersonInfo
             // 
@@ -300,7 +299,6 @@
             lblName.Size = new Size(31, 21);
             lblName.TabIndex = 9;
             lblName.Text = "???";
-            lblName.Click += lblName_Click;
             // 
             // label9
             // 
@@ -399,7 +397,6 @@
             Controls.Add(groupBox1);
             Name = "cntrlShowPersonInfo";
             Size = new Size(865, 395);
-            Load += cntrlShowPersonInfo_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox9).EndInit();
