@@ -34,6 +34,42 @@ namespace DVLD
             {
                 dvgListAllPerson.Columns["Gendor"].Visible = false;
             }
+
+            if(dvgListAllPerson.Rows.Count > 0)
+            {
+                dvgListAllPerson.Columns[0].HeaderText = "Person ID";
+                dvgListAllPerson.Columns[0].Width = 110;
+
+                dvgListAllPerson.Columns[1].HeaderText = "National No";
+                dvgListAllPerson.Columns[1].Width = 120;
+
+                dvgListAllPerson.Columns[2].HeaderText = "First Name";
+                dvgListAllPerson.Columns[2].Width = 120;
+
+                dvgListAllPerson.Columns[3].HeaderText = "Second Name";
+                dvgListAllPerson.Columns[3].Width = 140;
+
+                dvgListAllPerson.Columns[4].HeaderText = "Third Name";
+                dvgListAllPerson.Columns[4].Width = 120;
+
+                dvgListAllPerson.Columns[5].HeaderText = "Last Name";
+                dvgListAllPerson.Columns[5].Width = 120;
+                
+                dvgListAllPerson.Columns[6].HeaderText = "Gender";
+                dvgListAllPerson.Columns[6].Width = 120;
+
+                dvgListAllPerson.Columns[7].HeaderText = "Date of Birth";
+                dvgListAllPerson.Columns[7].Width = 140;
+
+                dvgListAllPerson.Columns[8].HeaderText = "Nationality";
+                dvgListAllPerson.Columns[8].Width = 120;
+
+                dvgListAllPerson.Columns[9].HeaderText = "Phone";
+                dvgListAllPerson.Columns[9].Width = 120;
+
+                dvgListAllPerson.Columns[10].HeaderText = "Email";
+                dvgListAllPerson.Columns[10].Width = 170;
+            }
         }
         private void btnAddPerson_Click(object sender, EventArgs e)
         {

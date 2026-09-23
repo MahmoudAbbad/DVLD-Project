@@ -58,7 +58,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Tajawal ExtraBold", 24.7499962F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.Red;
-            label1.Location = new Point(481, 174);
+            label1.Location = new Point(623, 199);
             label1.Name = "label1";
             label1.Size = new Size(240, 49);
             label1.TabIndex = 1;
@@ -84,7 +84,7 @@
             dvgListAllPerson.Location = new Point(12, 264);
             dvgListAllPerson.Name = "dvgListAllPerson";
             dvgListAllPerson.ReadOnly = true;
-            dvgListAllPerson.Size = new Size(1172, 263);
+            dvgListAllPerson.Size = new Size(1432, 263);
             dvgListAllPerson.TabIndex = 2;
             // 
             // cntxManagePeople
@@ -177,7 +177,7 @@
             // 
             btnAddPerson.FlatStyle = FlatStyle.Flat;
             btnAddPerson.Image = (Image)resources.GetObject("btnAddPerson.Image");
-            btnAddPerson.Location = new Point(1026, 201);
+            btnAddPerson.Location = new Point(1377, 201);
             btnAddPerson.Name = "btnAddPerson";
             btnAddPerson.Size = new Size(67, 57);
             btnAddPerson.TabIndex = 5;
@@ -189,7 +189,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(33, 233);
+            label3.Location = new Point(34, 228);
             label3.Name = "label3";
             label3.Size = new Size(71, 20);
             label3.TabIndex = 6;
@@ -201,7 +201,7 @@
             cbFilterBy.Font = new Font("Segoe UI", 10F);
             cbFilterBy.FormattingEnabled = true;
             cbFilterBy.Items.AddRange(new object[] { "None", "Person ID", "National No.", "FirstName", "SecondName", "ThirdName", "LastName", "Nationality", "Gender", "Phone", "Email" });
-            cbFilterBy.Location = new Point(110, 230);
+            cbFilterBy.Location = new Point(111, 225);
             cbFilterBy.Name = "cbFilterBy";
             cbFilterBy.Size = new Size(116, 25);
             cbFilterBy.TabIndex = 7;
@@ -210,7 +210,7 @@
             // tbSearch
             // 
             tbSearch.Font = new Font("Segoe UI", 10F);
-            tbSearch.Location = new Point(232, 230);
+            tbSearch.Location = new Point(233, 225);
             tbSearch.Name = "tbSearch";
             tbSearch.Size = new Size(174, 25);
             tbSearch.TabIndex = 8;
@@ -223,7 +223,7 @@
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
             pictureBox1.Location = new Point(0, 0);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(1196, 171);
+            pictureBox1.Size = new Size(1456, 171);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 9;
             pictureBox1.TabStop = false;
@@ -233,7 +233,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
-            ClientSize = new Size(1196, 561);
+            ClientSize = new Size(1456, 602);
             Controls.Add(pictureBox1);
             Controls.Add(tbSearch);
             Controls.Add(cbFilterBy);

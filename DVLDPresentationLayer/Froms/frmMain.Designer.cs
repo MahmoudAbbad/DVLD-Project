@@ -55,7 +55,7 @@
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.RenderMode = ToolStripRenderMode.Professional;
-            menuStrip1.Size = new Size(226, 642);
+            menuStrip1.Size = new Size(226, 631);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -153,16 +153,17 @@
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
             pictureBox1.Location = new Point(544, 177);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(206, 177);
+            pictureBox1.Size = new Size(303, 166);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.None;
             label1.AutoSize = true;
             label1.Font = new Font("Rockwell Extra Bold", 20F, FontStyle.Bold);
-            label1.Location = new Point(293, 357);
+            label1.Location = new Point(331, 574);
             label1.Name = "label1";
             label1.Size = new Size(706, 32);
             label1.TabIndex = 2;
@@ -173,13 +174,18 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
-            ClientSize = new Size(1104, 642);
+            ClientSize = new Size(1201, 631);
             Controls.Add(label1);
             Controls.Add(pictureBox1);
             Controls.Add(menuStrip1);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "frmMain";
+            StartPosition = FormStartPosition.Manual;
             Text = "DVLD ";
+            TransparencyKey = Color.Transparent;
+            WindowState = FormWindowState.Maximized;
             Load += frmMain_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
