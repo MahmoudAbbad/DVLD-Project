@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using DVLDBusinessLogicLayer;
 using DVLDDataAccessLayer;
 using System.IO;
+using System.Security.Cryptography.X509Certificates;
 namespace DVLD
 {
     public partial class frmLoginScreen : Form
@@ -60,19 +61,26 @@ namespace DVLD
         }
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            clsUsers User = new clsUsers();
-
-            User.UserName = tbUserName.Text;
-            User.Password = tbPassword.Text;
-
-            if (User.CheckIfUserNameAndPassTrue(User.UserName, User.Password))
+            if(string.IsNullOrWhiteSpace(tbUserName.Text) || string.IsNullOrWhiteSpace(tbPassword.Text))
             {
-                if (User.IsActive == true)
+                MessageBox.Show("Please enter both username and password.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            string UserName = tbUserName.Text;
+            string Password = tbPassword.Text;
+
+            clsUsers user = new clsUsers();
+            user.userInfo = user.CheckIfUserNameAndPassTrue(UserName, Password);
+
+            if (user.userInfo != null)
+            {
+                if (user.userInfo.IsActive == true)
                 {
-                    User.FillUserInGlobalClass();
+                    user.FillUserInGlobalClass();
                     _SaveUserInfoToFile();
-                    frmMain frm = new frmMain();
-                    frm.ShowDialog();
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
                 }
                 else
                 {
@@ -84,32 +92,41 @@ namespace DVLD
                 MessageBox.Show("UserName/Password Is Wrong!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        private void tbUserName_TextChanged(object sender, EventArgs e)
-        {
-            if (tbUserName.Text == "")
-            {
-                errorProvider1.SetError(tbUserName, "You must enter a username!");
-            }
-        }
-
-        private void tbPassword_TextChanged(object sender, EventArgs e)
-        {
-            if (tbPassword.Text == "")
-            {
-                errorProvider2.SetError(tbPassword, "You must enter a Password!");
-            }
-        }
-
         private void pictureBox4_Click(object sender, EventArgs e)
         {
             if (tbPassword.PasswordChar == '*')
             {
                 tbPassword.PasswordChar = default;
+                pictureBox4.Image = Image.FromFile(@"M:\Icons\hide.png");//eye hide image to hide password
             }
             else
             {
                 tbPassword.PasswordChar = '*';
+                pictureBox4.Image = Image.FromFile(@"M:\Icons\eye.png");//eye show image to show password
+            }
+        }
+
+        private void tbUserName_Validating(object sender, CancelEventArgs e)
+        {
+            if (tbUserName.Text == "")
+            {
+                errorProvider1.SetError(tbUserName, "You must enter a username!");
+            }
+            else
+            {
+                errorProvider1.SetError(tbUserName, "");
+            }
+        }
+
+        private void tbPassword_Validating(object sender, CancelEventArgs e)
+        {
+            if (tbPassword.Text == "")
+            {
+                errorProvider2.SetError(tbPassword, "You must enter a password!");
+            }
+            else
+            {
+                errorProvider2.SetError(tbPassword, "");
             }
         }
     }

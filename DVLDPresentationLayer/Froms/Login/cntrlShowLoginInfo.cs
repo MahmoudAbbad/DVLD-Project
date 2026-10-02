@@ -34,19 +34,19 @@ namespace DVLD
 
         }
 
-        public void LoadData()
-        {
-            lblUserID.Text = clsGlobalUserInfo.UserId.ToString();
-            lblUserName.Text = clsGlobalUserInfo.UserName.ToString();
+        //public void LoadData()
+        //{
+        //    lblUserID.Text = clsGlobalUserInfo.
+        //    lblUserName.Text = clsGlobalUserInfo.UserName.ToString();
 
-            if (clsGlobalUserInfo.IsActive == true)
-            {
-                lblisActive.Text = "Yes";
-            }
-            else
-            {
-                lblisActive.Text = "No";
-            }
-        }
+        //    if (clsGlobalUserInfo.IsActive == true)
+        //    {
+        //        lblisActive.Text = "Yes";
+        //    }
+        //    else
+        //    {
+        //        lblisActive.Text = "No";
+        //    }
+        //}
     }
 }

@@ -43,18 +43,20 @@
             errorProvider1 = new ErrorProvider(components);
             errorProvider2 = new ErrorProvider(components);
             pictureBox4 = new PictureBox();
+            panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorProvider2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(160, 110);
+            pictureBox1.Location = new Point(102, 110);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(197, 180);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
@@ -65,7 +67,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Tajawal ExtraBold", 24F, FontStyle.Bold);
-            label1.Location = new Point(211, 293);
+            label1.Location = new Point(155, 293);
             label1.Name = "label1";
             label1.Size = new Size(94, 47);
             label1.TabIndex = 1;
@@ -97,7 +99,7 @@
             tbUserName.Name = "tbUserName";
             tbUserName.Size = new Size(175, 27);
             tbUserName.TabIndex = 4;
-            tbUserName.TextChanged += tbUserName_TextChanged;
+            tbUserName.Validating += tbUserName_Validating;
             // 
             // tbPassword
             // 
@@ -106,7 +108,7 @@
             tbPassword.PasswordChar = '*';
             tbPassword.Size = new Size(175, 27);
             tbPassword.TabIndex = 5;
-            tbPassword.TextChanged += tbPassword_TextChanged;
+            tbPassword.Validating += tbPassword_Validating;
             // 
             // cbRememerMe
             // 
@@ -173,6 +175,16 @@
             pictureBox4.TabStop = false;
             pictureBox4.Click += pictureBox4_Click;
             // 
+            // panel1
+            // 
+            panel1.BackColor = SystemColors.Highlight;
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(pictureBox1);
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(423, 546);
+            panel1.TabIndex = 11;
+            // 
             // frmLoginScreen
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -188,8 +200,7 @@
             Controls.Add(tbUserName);
             Controls.Add(label3);
             Controls.Add(label2);
-            Controls.Add(label1);
-            Controls.Add(pictureBox1);
+            Controls.Add(panel1);
             Font = new Font("Segoe UI", 11F);
             Margin = new Padding(3, 4, 3, 4);
             Name = "frmLoginScreen";
@@ -200,6 +211,8 @@
             ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ((System.ComponentModel.ISupportInitialize)errorProvider2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -219,5 +232,6 @@
         private ErrorProvider errorProvider1;
         private ErrorProvider errorProvider2;
         private PictureBox pictureBox4;
+        private Panel panel1;
     }
 }

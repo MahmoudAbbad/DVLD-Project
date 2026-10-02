@@ -4,48 +4,48 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DVLDDataAccessLayer;
+using DVLDDataAccessLayer.Users;
 namespace DVLDBusinessLogicLayer
 {
     public class clsUsers
     {
-        public int UserID;
-        public int PersonID;
-        public string UserName { get; set; }
-        public string Password { get; set; }
+        public clsUserEntity userInfo = new clsUserEntity();
+        public clsUsers() {
 
-        public bool IsActive; 
-
-        public clsUsers() { 
-        
-            UserID = -1;
-            PersonID = -1;
-            UserName = "";
-            Password = "";
-            IsActive = false;
+            userInfo.UserID = -1;
+            userInfo.PersonID = -1;
+            userInfo.UserName = string.Empty;
+            userInfo.Password = string.Empty;
+            userInfo.IsActive = false;
         }
         public clsUsers(int UserId , int Personid, string UserName , string Password , bool IsActive)
         {
-            this.UserID = UserId;
-            this.PersonID = Personid;
-            this.UserName = UserName;
-            this.Password = Password;
-            this.IsActive = IsActive;
+            userInfo.UserID = UserId;
+            userInfo.PersonID = Personid;
+            userInfo.UserName = UserName;
+            userInfo.Password = Password;
+            userInfo.IsActive = IsActive;
         }
 
-        public bool CheckIfUserNameAndPassTrue(string UserName, string Password)
+        public clsUserEntity CheckIfUserNameAndPassTrue(string UserName, string Password)
         {
-            return (DVLDDataAccessLayer.clsUsersDataAccess.FindUserByUserNameAndPass(ref UserID, ref PersonID, UserName, Password, ref IsActive));
-        }
-
-        public void FillUserInGlobalClass()
-        {
-            clsGlobalUserInfo.SetAllUserInfo(UserID);
+            return (clsUsersDataAccess.FindUserByUserNameAndPass(UserName, Password));
         }
 
         public static DataTable GetAllUsers()
         {
-            return DVLDDataAccessLayer.clsUsersDataAccess.GetAllUsers();
+            return clsUsersDataAccess.GetAllUsers();
+        }
+
+        public clsUserEntity FindUserByUserId(int UserId)
+        {
+            return clsUsersDataAccess.FindUserByID(UserId);
+        }
+
+        public void FillUserInGlobalClass()
+        {
+            clsGlobalUserInfo.UserName = userInfo.UserName;
+            clsGlobalUserInfo.Password = userInfo.Password;
         }
 
     }

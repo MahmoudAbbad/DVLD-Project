@@ -4,6 +4,7 @@ namespace DVLD
 {
     public partial class frmMain : Form
     {
+        public bool IsUserSignedOut { get; private set; } = false;
         public frmMain()
         {
             InitializeComponent();
@@ -45,7 +46,10 @@ namespace DVLD
 
         private void signOutToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            IsUserSignedOut = true;
             this.Close();
         }
+
+        
     }
 }
