@@ -10,9 +10,7 @@ namespace DVLDBusinessLogicLayer
 {
     public static class clsGlobalUserInfo
     {
-        public static string UserName { get; set; } = string.Empty;
-
-        public static string Password { get; set; } = string.Empty;
+        public static clsUsers CurrentUser { get; set; } = new();
 
     }
 }

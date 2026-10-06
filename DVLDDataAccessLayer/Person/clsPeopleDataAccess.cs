@@ -80,6 +80,7 @@ namespace DVLDDataAccessLayer.Person
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                person = null;
             }
             finally
             {
@@ -89,6 +90,53 @@ namespace DVLDDataAccessLayer.Person
             return person;
         }
 
+        public static clsPersonEntity GetPersonByNationalNo(string NationalNo)
+        {
+            clsPersonEntity person = new clsPersonEntity();
+
+            SqlConnection connection = new SqlConnection(clsDataAccessSettings.connectionString);
+
+            string query = "SELECT * FROM People where NationalNo = @NationalNo;";
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@NationalNo", NationalNo);
+
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.Read() != null)
+                {
+                    person.PersonID = Convert.ToInt32(reader["PersonID"]);
+                    person.NationalNo = reader["NationalNo"].ToString();
+                    person.FirstName = reader["FirstName"].ToString();
+                    person.SecondName = reader["SecondName"].ToString();
+                    person.ThirdName = reader["ThirdName"].ToString();
+                    person.LastName = reader["LastName"].ToString();
+                    person.DateOfBirth = Convert.ToDateTime(reader["DateOfBirth"]);
+                    person.Gendor = reader["Gendor"].ToString();
+                    person.Address = reader["Address"].ToString();
+                    person.Phone = reader["Phone"].ToString();
+                    person.Email = reader["Email"].ToString();
+                    clsCountriesDataAccess.GetCountry(Convert.ToInt32(reader["NationalityCountryID"]), ref person.NationalityCountry);
+                    person.ImagePath = reader["ImagePath"].ToString();
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                person = null;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return person;
+        }
         public static int AddPerson(clsPersonEntity person)
         {
             int NatinoalityCountryID = 0;

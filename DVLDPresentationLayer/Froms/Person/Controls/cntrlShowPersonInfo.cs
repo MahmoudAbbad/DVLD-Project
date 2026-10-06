@@ -32,26 +32,55 @@ namespace DVLDPresentationLayer.User_Controls
             lblDateOfBirth.Text = "[???]";
             lblPhone.Text = "[???]";
             lblCountry.Text = "[???]";
-            pbPersonImage.Image = null;
+            pbPersonImage.Image = Image.FromFile(@"M:\Icons\Icons\Male.png");
         }
 
-        public void LoadPersonInfo(int personId)
+        public void LoadPersonInfoByPersonId(int personId)
         {
             _PersonId = personId;
 
-            if (_PersonId <= 0)
+            if (_PersonId <= 0 || _PersonId == null)
             {
                 MessageBox.Show("Invalid Person ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 _ResetDefaultValues();
                 return;
             }
 
-            _LoadData();
-        }   
-        private void _LoadData()
-        {
             clsPersonEntity personInfo = new clsPersonEntity();
             personInfo = clsPerson.FindById(_PersonId);
+
+            if(personInfo != null)
+            {
+                _LoadData(personInfo);
+            }
+            else
+            {
+                MessageBox.Show("Person not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                _ResetDefaultValues();
+            }
+        }   
+        public void LoadPersonInfoByNationalNo(string nationalNo)
+        {
+            if (string.IsNullOrEmpty(nationalNo))
+            {
+                MessageBox.Show("Invalid National No.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                _ResetDefaultValues();
+                return;
+            }
+            clsPersonEntity personInfo = clsPerson.FindByNationalNo(nationalNo);
+            if (personInfo != null)
+            {
+                _PersonId = personInfo.PersonID;
+                _LoadData(personInfo);
+            }
+            else
+            {
+                MessageBox.Show("Person not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                _ResetDefaultValues();
+            }
+        }
+        private void _LoadData(clsPersonEntity personInfo)
+        {
 
             if (personInfo != null)
             {
@@ -69,6 +98,17 @@ namespace DVLDPresentationLayer.User_Controls
                 {
                     pbPersonImage.Image = Image.FromFile(personInfo.ImagePath);
                 }
+                else
+                {
+                    if(personInfo.Gendor == "Male")
+                    {
+                        pbPersonImage.Image = Image.FromFile(@"M:\Icons\Icons\Male.png");
+                    }
+                    else if (personInfo.Gendor == "Female")
+                    {
+                        pbPersonImage.Image = Image.FromFile(@"M:\Icons\Icons\Female 512.png");
+                    }
+                }
             }
             else
             {
@@ -76,12 +116,17 @@ namespace DVLDPresentationLayer.User_Controls
             }
 
         }
-
         private void lnkEditPersonInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            if(_PersonId <= 0)
+            {
+                MessageBox.Show("Invalid Person ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             frmAddNewPerson frmEdit = new frmAddNewPerson(_PersonId);
             frmEdit.ShowDialog();
-            _LoadData();
+            _LoadData(clsPerson.FindById(_PersonId));
         }
     }
 }

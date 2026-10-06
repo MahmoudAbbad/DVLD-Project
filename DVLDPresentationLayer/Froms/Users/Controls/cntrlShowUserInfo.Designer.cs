@@ -1,6 +1,6 @@
-﻿namespace DVLD
+﻿namespace DVLDPresentationLayer.Froms.Users.Controls
 {
-    partial class cntrlShowLoginInfo
+    partial class cntrlShowUserInfo
     {
         /// <summary> 
         /// Required designer variable.
@@ -35,6 +35,7 @@
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
+            cntrlShowPersonInfo1 = new DVLDPresentationLayer.User_Controls.cntrlShowPersonInfo();
             groupBox2.SuspendLayout();
             SuspendLayout();
             // 
@@ -47,48 +48,49 @@
             groupBox2.Controls.Add(label3);
             groupBox2.Controls.Add(label2);
             groupBox2.Controls.Add(label1);
-            groupBox2.Location = new Point(0, 0);
+            groupBox2.Location = new Point(6, 416);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(708, 123);
-            groupBox2.TabIndex = 1;
+            groupBox2.Size = new Size(865, 114);
+            groupBox2.TabIndex = 2;
             groupBox2.TabStop = false;
             groupBox2.Text = "Login Informatino";
             // 
             // lblisActive
             // 
             lblisActive.AutoSize = true;
-            lblisActive.Font = new Font("Tajawal Light", 11.9999981F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblisActive.Location = new Point(623, 60);
+            lblisActive.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblisActive.Location = new Point(741, 59);
             lblisActive.Name = "lblisActive";
-            lblisActive.Size = new Size(0, 22);
+            lblisActive.Size = new Size(31, 21);
             lblisActive.TabIndex = 5;
+            lblisActive.Text = "???";
             lblisActive.Click += lblisActive_Click;
             // 
             // lblUserName
             // 
             lblUserName.AutoSize = true;
-            lblUserName.Font = new Font("Tajawal Light", 11.9999981F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblUserName.Location = new Point(352, 60);
+            lblUserName.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblUserName.Location = new Point(453, 61);
             lblUserName.Name = "lblUserName";
-            lblUserName.Size = new Size(0, 22);
+            lblUserName.Size = new Size(31, 21);
             lblUserName.TabIndex = 4;
-            lblUserName.Click += lblUserName_Click;
+            lblUserName.Text = "???";
             // 
             // lblUserID
             // 
             lblUserID.AutoSize = true;
-            lblUserID.Font = new Font("Tajawal Light", 11.9999981F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblUserID.Location = new Point(147, 60);
+            lblUserID.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblUserID.Location = new Point(147, 58);
             lblUserID.Name = "lblUserID";
-            lblUserID.Size = new Size(0, 22);
+            lblUserID.Size = new Size(31, 21);
             lblUserID.TabIndex = 3;
-            lblUserID.Click += lblUserID_Click;
+            lblUserID.Text = "???";
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Tajawal ExtraBold", 14F, FontStyle.Bold);
-            label3.Location = new Point(528, 56);
+            label3.Location = new Point(654, 54);
             label3.Name = "label3";
             label3.Size = new Size(89, 28);
             label3.TabIndex = 2;
@@ -98,7 +100,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Tajawal ExtraBold", 14F, FontStyle.Bold);
-            label2.Location = new Point(235, 56);
+            label2.Location = new Point(339, 56);
             label2.Name = "label2";
             label2.Size = new Size(111, 28);
             label2.TabIndex = 1;
@@ -108,19 +110,28 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Tajawal ExtraBold", 14F, FontStyle.Bold);
-            label1.Location = new Point(62, 56);
+            label1.Location = new Point(62, 54);
             label1.Name = "label1";
             label1.Size = new Size(79, 28);
             label1.TabIndex = 0;
             label1.Text = "User ID:";
             // 
-            // cntrlShowLoginInfo
+            // cntrlShowPersonInfo1
+            // 
+            cntrlShowPersonInfo1.Location = new Point(6, 15);
+            cntrlShowPersonInfo1.Name = "cntrlShowPersonInfo1";
+            cntrlShowPersonInfo1.Size = new Size(865, 395);
+            cntrlShowPersonInfo1.TabIndex = 3;
+            // 
+            // cntrlShowUserInfo
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(cntrlShowPersonInfo1);
             Controls.Add(groupBox2);
-            Name = "cntrlShowLoginInfo";
-            Size = new Size(708, 123);
+            Name = "cntrlShowUserInfo";
+            Size = new Size(877, 533);
+            Load += cntrlShowUserInfo_Load;
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
             ResumeLayout(false);
@@ -129,11 +140,12 @@
         #endregion
 
         private GroupBox groupBox2;
+        private Label lblisActive;
+        private Label lblUserName;
         private Label lblUserID;
         private Label label3;
         private Label label2;
         private Label label1;
-        private Label lblisActive;
-        private Label lblUserName;
+        private User_Controls.cntrlShowPersonInfo cntrlShowPersonInfo1;
     }
 }

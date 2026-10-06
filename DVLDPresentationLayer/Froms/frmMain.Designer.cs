@@ -124,6 +124,7 @@
             currentUserInfoToolStripMenuItem.Name = "currentUserInfoToolStripMenuItem";
             currentUserInfoToolStripMenuItem.Size = new Size(203, 38);
             currentUserInfoToolStripMenuItem.Text = "Current User Info";
+            currentUserInfoToolStripMenuItem.Click += currentUserInfoToolStripMenuItem_Click;
             // 
             // changePasswordToolStripMenuItem
             // 

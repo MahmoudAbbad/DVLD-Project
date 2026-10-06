@@ -19,7 +19,6 @@ namespace DVLDPresentationLayer.Froms
         {
             _PersonId = personId;
             InitializeComponent();
-
         }
         private void btnClose_Click(object sender, EventArgs e)
         {
@@ -28,7 +27,7 @@ namespace DVLDPresentationLayer.Froms
 
         private void frmShowPersonInfo_Load(object sender, EventArgs e)
         {
-            cntrlShowPersonInfo1.LoadPersonInfo(_PersonId);
+            cntrlShowPersonInfo1.LoadPersonInfoByPersonId(_PersonId);
         }
     }
 }

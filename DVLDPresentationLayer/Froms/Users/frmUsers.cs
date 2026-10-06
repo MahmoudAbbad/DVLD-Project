@@ -1,5 +1,6 @@
 ﻿using DVLDBusinessLogicLayer;
 using DVLDPresentationLayer.Froms;
+using DVLDPresentationLayer.Froms.Users;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -38,7 +39,8 @@ namespace DVLD
         }
         private void btnAddUser_Click(object sender, EventArgs e)
         {
-
+            frmAddEditUser frm = new frmAddEditUser();
+            frm.ShowDialog();
         }
 
         private void frmUsers_Load(object sender, EventArgs e)
@@ -162,9 +164,34 @@ namespace DVLD
 
         private void showDetailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           // clsGlobalUserInfo.SetAllUserInfo(dvgListAllUsers)
-            frmShowUserDetails frm = new frmShowUserDetails();
+            frmShowUserDetails frm = new frmShowUserDetails((int)dvgListAllUsers.CurrentRow.Cells["UserID"].Value);
             frm.ShowDialog();
+        }
+
+        private void sendEmailToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("This Feature not enable for now", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void phoneCallToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("This Feature not enable for now", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(MessageBox.Show("Are you sure you want to delete this user?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                if(clsUsers.DeleteUserByUserId((int)dvgListAllUsers.CurrentRow.Cells["UserID"].Value))
+                {
+                    MessageBox.Show("User deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    dvgListAllUsers.Rows.RemoveAt(dvgListAllUsers.CurrentRow.Index);
+                }
+                else
+                {
+                    MessageBox.Show("Can't delete user because its related with other data.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }

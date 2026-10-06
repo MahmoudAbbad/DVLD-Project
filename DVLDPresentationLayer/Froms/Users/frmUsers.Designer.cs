@@ -114,6 +114,7 @@
             phoneCallToolStripMenuItem.Name = "phoneCallToolStripMenuItem";
             phoneCallToolStripMenuItem.Size = new Size(211, 46);
             phoneCallToolStripMenuItem.Text = "Phone Call";
+            phoneCallToolStripMenuItem.Click += phoneCallToolStripMenuItem_Click;
             // 
             // sendEmailToolStripMenuItem
             // 
@@ -122,6 +123,7 @@
             sendEmailToolStripMenuItem.Name = "sendEmailToolStripMenuItem";
             sendEmailToolStripMenuItem.Size = new Size(211, 46);
             sendEmailToolStripMenuItem.Text = "Send Email";
+            sendEmailToolStripMenuItem.Click += sendEmailToolStripMenuItem_Click;
             // 
             // cbFilterBy
             // 
@@ -170,7 +172,7 @@
             contextMenuStrip1.Font = new Font("Segoe UI", 11F);
             contextMenuStrip1.Items.AddRange(new ToolStripItem[] { showDetailsToolStripMenuItem, addNewPersonToolStripMenuItem, editToolStripMenuItem, deleteToolStripMenuItem, toolStripSeparator1, sendEmailToolStripMenuItem, phoneCallToolStripMenuItem });
             contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(212, 308);
+            contextMenuStrip1.Size = new Size(212, 286);
             // 
             // deleteToolStripMenuItem
             // 
@@ -179,6 +181,7 @@
             deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
             deleteToolStripMenuItem.Size = new Size(211, 46);
             deleteToolStripMenuItem.Text = "Delete";
+            deleteToolStripMenuItem.Click += deleteToolStripMenuItem_Click;
             // 
             // dvgListAllUsers
             // 

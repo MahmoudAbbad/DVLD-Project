@@ -62,17 +62,12 @@ namespace DVLDBusinessLogicLayer
         }
         public static clsPersonEntity FindById(int PersonID)
         {
-            if(PersonID <= 0|| PersonID == null)
-            {
-                throw new Exception("Invalid Person ID.");
-            }
-
             clsPersonEntity personInfo = new();            
             personInfo = clsPeopleDataAccess.GetPersonById(PersonID);
 
             if (personInfo == null)
             {
-                throw new Exception("Person not found.");
+                return null;
 
             }
 
@@ -86,6 +81,24 @@ namespace DVLDBusinessLogicLayer
             }
 
                 return personInfo;
+        }
+        public static clsPersonEntity FindByNationalNo(string NationalNo)
+        {
+            clsPersonEntity personInfo = new();
+            personInfo = clsPeopleDataAccess.GetPersonByNationalNo(NationalNo);
+            if (personInfo == null)
+            {
+                return null;
+            }
+            if (personInfo.Gendor == "0")
+            {
+                personInfo.Gendor = "Male";
+            }
+            else
+            {
+                personInfo.Gendor = "Female";
+            }
+            return personInfo;
         }
         public bool DeletePerson(int PersonId , string imagePath)
         {

@@ -37,15 +37,19 @@ namespace DVLDBusinessLogicLayer
             return clsUsersDataAccess.GetAllUsers();
         }
 
-        public clsUserEntity FindUserByUserId(int UserId)
+        public static clsUserEntity FindUserByUserId(int UserId)
         {
             return clsUsersDataAccess.FindUserByID(UserId);
         }
 
         public void FillUserInGlobalClass()
         {
-            clsGlobalUserInfo.UserName = userInfo.UserName;
-            clsGlobalUserInfo.Password = userInfo.Password;
+            clsGlobalUserInfo.CurrentUser = this;
+        }
+
+        public static bool DeleteUserByUserId(int UserId)
+        {
+            return clsUsersDataAccess.DeleteUserByUserId(UserId);
         }
 
     }

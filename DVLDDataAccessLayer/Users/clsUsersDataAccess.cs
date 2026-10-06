@@ -175,8 +175,8 @@ namespace DVLDDataAccessLayer.Users
         {
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.connectionString);
 
-            string query = "SELECT Users.UserID, Users.PersonID, People.FirstName+ " +
-                "People.SecondName+ People.ThirdName+ People.LastName as FullName," +
+            string query = "SELECT Users.UserID, Users.PersonID, People.FirstName+' '" +
+                " + People.SecondName+' '+ People.ThirdName+' '+ People.LastName as FullName," +
                 " Users.UserName, Users.IsActive FROM  People INNER JOIN  Users " +
                 "ON People.PersonID = Users.PersonID";
             DataTable dt = new DataTable();
@@ -207,6 +207,38 @@ namespace DVLDDataAccessLayer.Users
             return dt;
         }
 
+        public static bool DeleteUserByUserId(int UserId)
+        {
+            bool isDeleted = false;
 
+            SqlConnection connection = new SqlConnection(clsDataAccessSettings.connectionString);
+
+            string query = "DELETE FROM Users WHERE UserID = @UserID";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@UserID", UserId);
+
+            try
+            {
+                connection.Open();
+                int rowsAffected = command.ExecuteNonQuery();
+                if (rowsAffected > 0)
+                {
+                    isDeleted = true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return isDeleted;
+        }
     }
 }

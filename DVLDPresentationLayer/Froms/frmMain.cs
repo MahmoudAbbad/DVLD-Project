@@ -1,5 +1,6 @@
 using System;
 using DVLDBusinessLogicLayer;
+using DVLDPresentationLayer.Froms;
 namespace DVLD
 {
     public partial class frmMain : Form
@@ -41,7 +42,7 @@ namespace DVLD
 
         private void acountSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-          
+
         }
 
         private void signOutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -50,6 +51,10 @@ namespace DVLD
             this.Close();
         }
 
-        
+        private void currentUserInfoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmShowUserDetails frm = new frmShowUserDetails(clsGlobalUserInfo.CurrentUser.userInfo.UserID);
+            frm.ShowDialog();
+        }
     }
 }
