@@ -133,6 +133,7 @@
             changePasswordToolStripMenuItem.Name = "changePasswordToolStripMenuItem";
             changePasswordToolStripMenuItem.Size = new Size(203, 38);
             changePasswordToolStripMenuItem.Text = "Change Password";
+            changePasswordToolStripMenuItem.Click += changePasswordToolStripMenuItem_Click;
             // 
             // toolStripSeparator1
             // 

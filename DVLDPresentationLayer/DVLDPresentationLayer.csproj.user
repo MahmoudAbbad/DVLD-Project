@@ -16,6 +16,9 @@
     <Compile Update="Froms\Users\frmAddEditUser.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Froms\Users\frmChangePassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Froms\Users\frmShowUserDetails.cs">
       <SubType>Form</SubType>
     </Compile>

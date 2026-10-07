@@ -49,6 +49,7 @@
             label1 = new Label();
             pictureBox1 = new PictureBox();
             cbActiveFilter = new ComboBox();
+            ChangePasswordToolStripMenuItem1 = new ToolStripMenuItem();
             contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dvgListAllUsers).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -112,7 +113,7 @@
             phoneCallToolStripMenuItem.Image = (Image)resources.GetObject("phoneCallToolStripMenuItem.Image");
             phoneCallToolStripMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             phoneCallToolStripMenuItem.Name = "phoneCallToolStripMenuItem";
-            phoneCallToolStripMenuItem.Size = new Size(211, 46);
+            phoneCallToolStripMenuItem.Size = new Size(217, 46);
             phoneCallToolStripMenuItem.Text = "Phone Call";
             phoneCallToolStripMenuItem.Click += phoneCallToolStripMenuItem_Click;
             // 
@@ -121,7 +122,7 @@
             sendEmailToolStripMenuItem.Image = (Image)resources.GetObject("sendEmailToolStripMenuItem.Image");
             sendEmailToolStripMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             sendEmailToolStripMenuItem.Name = "sendEmailToolStripMenuItem";
-            sendEmailToolStripMenuItem.Size = new Size(211, 46);
+            sendEmailToolStripMenuItem.Size = new Size(217, 46);
             sendEmailToolStripMenuItem.Text = "Send Email";
             sendEmailToolStripMenuItem.Click += sendEmailToolStripMenuItem_Click;
             // 
@@ -140,14 +141,14 @@
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(208, 6);
+            toolStripSeparator1.Size = new Size(214, 6);
             // 
             // editToolStripMenuItem
             // 
             editToolStripMenuItem.Image = (Image)resources.GetObject("editToolStripMenuItem.Image");
             editToolStripMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             editToolStripMenuItem.Name = "editToolStripMenuItem";
-            editToolStripMenuItem.Size = new Size(211, 46);
+            editToolStripMenuItem.Size = new Size(217, 46);
             editToolStripMenuItem.Text = "Edit";
             // 
             // addNewPersonToolStripMenuItem
@@ -155,7 +156,7 @@
             addNewPersonToolStripMenuItem.Image = (Image)resources.GetObject("addNewPersonToolStripMenuItem.Image");
             addNewPersonToolStripMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             addNewPersonToolStripMenuItem.Name = "addNewPersonToolStripMenuItem";
-            addNewPersonToolStripMenuItem.Size = new Size(211, 46);
+            addNewPersonToolStripMenuItem.Size = new Size(217, 46);
             addNewPersonToolStripMenuItem.Text = "Add New Person";
             // 
             // showDetailsToolStripMenuItem
@@ -163,23 +164,23 @@
             showDetailsToolStripMenuItem.Image = (Image)resources.GetObject("showDetailsToolStripMenuItem.Image");
             showDetailsToolStripMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             showDetailsToolStripMenuItem.Name = "showDetailsToolStripMenuItem";
-            showDetailsToolStripMenuItem.Size = new Size(211, 46);
+            showDetailsToolStripMenuItem.Size = new Size(217, 46);
             showDetailsToolStripMenuItem.Text = "Show Details";
             showDetailsToolStripMenuItem.Click += showDetailsToolStripMenuItem_Click;
             // 
             // contextMenuStrip1
             // 
             contextMenuStrip1.Font = new Font("Segoe UI", 11F);
-            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { showDetailsToolStripMenuItem, addNewPersonToolStripMenuItem, editToolStripMenuItem, deleteToolStripMenuItem, toolStripSeparator1, sendEmailToolStripMenuItem, phoneCallToolStripMenuItem });
+            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { showDetailsToolStripMenuItem, addNewPersonToolStripMenuItem, editToolStripMenuItem, deleteToolStripMenuItem, ChangePasswordToolStripMenuItem1, toolStripSeparator1, sendEmailToolStripMenuItem, phoneCallToolStripMenuItem });
             contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(212, 286);
+            contextMenuStrip1.Size = new Size(218, 354);
             // 
             // deleteToolStripMenuItem
             // 
             deleteToolStripMenuItem.Image = (Image)resources.GetObject("deleteToolStripMenuItem.Image");
             deleteToolStripMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            deleteToolStripMenuItem.Size = new Size(211, 46);
+            deleteToolStripMenuItem.Size = new Size(217, 46);
             deleteToolStripMenuItem.Text = "Delete";
             deleteToolStripMenuItem.Click += deleteToolStripMenuItem_Click;
             // 
@@ -242,6 +243,15 @@
             cbActiveFilter.Visible = false;
             cbActiveFilter.SelectedIndexChanged += cbActiveFilter_SelectedIndexChanged;
             // 
+            // ChangePasswordToolStripMenuItem1
+            // 
+            ChangePasswordToolStripMenuItem1.Image = (Image)resources.GetObject("ChangePasswordToolStripMenuItem1.Image");
+            ChangePasswordToolStripMenuItem1.ImageScaling = ToolStripItemImageScaling.None;
+            ChangePasswordToolStripMenuItem1.Name = "ChangePasswordToolStripMenuItem1";
+            ChangePasswordToolStripMenuItem1.Size = new Size(217, 46);
+            ChangePasswordToolStripMenuItem1.Text = "Change Password";
+            ChangePasswordToolStripMenuItem1.Click += ChangePasswordToolStripMenuItem1_Click;
+            // 
             // frmUsers
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -288,5 +298,6 @@
         private Label label1;
         private PictureBox pictureBox1;
         private ComboBox cbActiveFilter;
+        private ToolStripMenuItem ChangePasswordToolStripMenuItem1;
     }
 }

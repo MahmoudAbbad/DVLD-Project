@@ -77,7 +77,7 @@ namespace DVLD
             {
                 if (user.userInfo.IsActive == true)
                 {
-                    user.FillUserInGlobalClass();
+                    clsGlobalUserInfo.SetCurrentUser(user.userInfo);
                     _SaveUserInfoToFile();
                     this.DialogResult = DialogResult.OK;
                     this.Close();

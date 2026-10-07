@@ -10,7 +10,7 @@ namespace DVLDDataAccessLayer.Users
 {
     public class clsUsersDataAccess
     {
-        public static bool IsUserExistByUserNameAndPassword(string UserName , string Password)
+        public static bool IsUserExistByUserNameAndPassword(string UserName, string Password)
         {
             bool IsLogined = false;
 
@@ -42,13 +42,13 @@ namespace DVLDDataAccessLayer.Users
                 connection.Close();
             }
 
-            return IsLogined; 
+            return IsLogined;
         }
 
-        public static clsUserEntity FindUserByUserNameAndPass(string UserName , string Password)
+        public static clsUserEntity FindUserByUserNameAndPass(string UserName, string Password)
         {
-            clsUserEntity user = new();   
-            
+            clsUserEntity user = new();
+
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.connectionString);
 
             string query = "SELECT * FROM Users where UserName = @Username and Password = @Password";
@@ -67,6 +67,8 @@ namespace DVLDDataAccessLayer.Users
                 {
                     user.UserID = int.Parse(reader["UserID"].ToString());
                     user.PersonID = int.Parse(reader["PersonID"].ToString());
+                    user.UserName = reader["UserName"].ToString();
+                    user.Password = reader["Password"].ToString();
                     user.IsActive = bool.Parse(reader["IsActive"].ToString());
                 }
 
@@ -96,7 +98,7 @@ namespace DVLDDataAccessLayer.Users
 
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@Username", userName);
-            
+
 
             try
             {
@@ -130,7 +132,6 @@ namespace DVLDDataAccessLayer.Users
 
         public static clsUserEntity FindUserByID(int UserID)
         {
-            bool IsExist = false;
             clsUserEntity user = new clsUserEntity();
 
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.connectionString);
@@ -149,12 +150,12 @@ namespace DVLDDataAccessLayer.Users
 
                 if (reader.Read() != null)
                 {
+                    user.UserID = UserID;
                     user.PersonID = int.Parse(reader["PersonID"].ToString());
                     user.IsActive = bool.Parse(reader["IsActive"].ToString());
                     user.Password = reader["Password"].ToString();
                     user.UserName = reader["UserName"].ToString();
 
-                    IsExist = true;
                 }
 
             }
@@ -180,14 +181,14 @@ namespace DVLDDataAccessLayer.Users
                 " Users.UserName, Users.IsActive FROM  People INNER JOIN  Users " +
                 "ON People.PersonID = Users.PersonID";
             DataTable dt = new DataTable();
-            
+
             SqlCommand commen = new SqlCommand(query, connection);
 
             try
             {
                 connection.Open();
                 SqlDataReader reader = commen.ExecuteReader();
-               
+
                 if (reader.HasRows)
                 {
                     dt.Load(reader);
@@ -240,5 +241,61 @@ namespace DVLDDataAccessLayer.Users
 
             return isDeleted;
         }
+
+        public static string GetPasswordByUserId(int UserId)
+        {
+            string password = string.Empty;
+            SqlConnection connection = new SqlConnection(clsDataAccessSettings.connectionString);
+            string query = "SELECT Password FROM Users WHERE UserID = @UserID";
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@UserID", UserId);
+            try
+            {
+                connection.Open();
+                object result = command.ExecuteScalar();
+                if (result != null)
+                {
+                    password = result.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return password;
+        }
+
+        public static bool UpdatePassword(int UserId, string newPassword)
+        {
+            bool isUpdated = false;
+            SqlConnection connection = new SqlConnection(clsDataAccessSettings.connectionString);
+            string query = "UPDATE Users SET Password = @NewPassword WHERE UserID = @UserID";
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@NewPassword", newPassword);
+            command.Parameters.AddWithValue("@UserID", UserId);
+            try
+            {
+                connection.Open();
+                int rowsAffected = command.ExecuteNonQuery();
+                if (rowsAffected > 0)
+                {
+                    isUpdated = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return isUpdated;
+        }
+
+       }
     }
-}

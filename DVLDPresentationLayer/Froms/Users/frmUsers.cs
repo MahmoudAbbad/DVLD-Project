@@ -180,9 +180,9 @@ namespace DVLD
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(MessageBox.Show("Are you sure you want to delete this user?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("Are you sure you want to delete this user?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                if(clsUsers.DeleteUserByUserId((int)dvgListAllUsers.CurrentRow.Cells["UserID"].Value))
+                if (clsUsers.DeleteUserByUserId((int)dvgListAllUsers.CurrentRow.Cells["UserID"].Value))
                 {
                     MessageBox.Show("User deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     dvgListAllUsers.Rows.RemoveAt(dvgListAllUsers.CurrentRow.Index);
@@ -192,6 +192,12 @@ namespace DVLD
                     MessageBox.Show("Can't delete user because its related with other data.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void ChangePasswordToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            frmChangePassword frm = new frmChangePassword((int)dvgListAllUsers.CurrentRow.Cells["UserID"].Value, false);
+            frm.ShowDialog();
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using DVLDBusinessLogicLayer;
 using DVLDPresentationLayer.Froms;
+using DVLDPresentationLayer.Froms.Users;
 namespace DVLD
 {
     public partial class frmMain : Form
@@ -55,6 +56,20 @@ namespace DVLD
         {
             frmShowUserDetails frm = new frmShowUserDetails(clsGlobalUserInfo.CurrentUser.userInfo.UserID);
             frm.ShowDialog();
+        }
+
+        private void changePasswordToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int userId = clsGlobalUserInfo.CurrentUser?.userInfo?.UserID ?? -1;
+            if (userId <= 0)
+            {
+                MessageBox.Show("Invalid User ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        
+            frmChangePassword frm = new frmChangePassword(userId, true);
+            frm.ShowDialog();
+
         }
     }
 }

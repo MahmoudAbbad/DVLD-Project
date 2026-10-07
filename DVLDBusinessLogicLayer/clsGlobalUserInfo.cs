@@ -12,5 +12,11 @@ namespace DVLDBusinessLogicLayer
     {
         public static clsUsers CurrentUser { get; set; } = new();
 
+        public static void SetCurrentUser(clsUserEntity UserEntity)
+        {
+            CurrentUser = new clsUsers();
+            CurrentUser.userInfo = UserEntity;
+        }
+
     }
 }

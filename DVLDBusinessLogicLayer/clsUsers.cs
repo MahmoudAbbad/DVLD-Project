@@ -42,14 +42,24 @@ namespace DVLDBusinessLogicLayer
             return clsUsersDataAccess.FindUserByID(UserId);
         }
 
-        public void FillUserInGlobalClass()
-        {
-            clsGlobalUserInfo.CurrentUser = this;
-        }
-
         public static bool DeleteUserByUserId(int UserId)
         {
             return clsUsersDataAccess.DeleteUserByUserId(UserId);
+        }
+
+        public static string GetPasswordByUserId(int UserId)
+        {
+            return clsUsersDataAccess.GetPasswordByUserId(UserId);
+        }
+
+        public static bool UpdateUserPassword(int UserId, string NewPassword)
+        {
+           bool isUpdated = clsUsersDataAccess.UpdatePassword(UserId, NewPassword);
+            if(UserId == clsGlobalUserInfo.CurrentUser.userInfo.UserID)
+            {
+                clsGlobalUserInfo.SetCurrentUser(clsUsersDataAccess.FindUserByID(UserId));
+            }
+            return isUpdated;
         }
 
     }
